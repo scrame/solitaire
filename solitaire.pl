@@ -1,5 +1,9 @@
 #!/usr/bin/perl -l
 
+#NOTE: THIS DOES NOT USE ANY REFERENCES OR MOOSE OR ANYTHING LIKE THAT, IT PASSES EVERYTHING AROUND AS LIST LITERALS BEACAUSE 
+#WELL, I DIDN'T REALLY CARE IF THEY WEREN'T PASSED AROUND EFFICIENTLY. IF YOU ARE SOMEONE TRYING TO LEARN FROM THIS SCRIPT, 
+#I AM VERY SORRY. THAT IS ALL.
+
 #NOTE: IF YOU WANT DEBUGGING INFORMATION, SET THE ENVIRONMENT VARIABLE DEBUG!
 
 
@@ -15,29 +19,14 @@ my @suits = qw/D C H S/;
 my @ranks = qw/2 3 4 5 6 7 8 9 10 J Q K A/;
 
 #seed random:
-srand(localtime());
+srand(rand(time()));
 
 ##MAIN FUNCTION:
 
 #create a deck
 my @deck = create_deck();
 
-#shuffle the deck
-
-# [edited notation]
-# from wikipedia: http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-
-
-#   for n from m - 1 downto 1 do
-for(my $i=(@deck); $i>=0 ; $i--) {
-
-#         j = random (0 .. n)
-#my $j = 
-
-#         swap a[j], a[n]
-
-}
-
+shuffle_deck(@deck);
 
 #create a playing field, it should have 7 slots. Each slot should have a reserve and an active card.
 #when the active card is played, a card is drawn from the reserve, and if there is no reserve, the
@@ -69,7 +58,21 @@ sub create_deck {
     return @deck;
 }
 
+sub shuffle_deck {
+#shuffle the deck
 
+    my @retval = @_;
+
+# [edited notation]
+# from wikipedia: http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    for(my $i=scalar(@retval) - 1; $i>0 ; $i--) {
+        my $j = rand($i);
+        @retval[$i, $j] = @retval[$j, $i];
+    }
+    return @retval;
+}
+
+##END DECK FUNCTIONS
 
 ##DEBUG FUNCTIONS
 
@@ -81,6 +84,9 @@ sub print_debug {
         print "rank:";
         print @ranks;
         print "deck:";
-        print create_deck();
+        my @test_deck = create_deck();
+        print @test_deck;
+        @test_deck = shuffle_deck(@test_deck);
+        print @test_deck;
     }
 }
