@@ -14,6 +14,8 @@ my @suits = qw/D C H S/;
 #ranks
 my @ranks = qw/2 3 4 5 6 7 8 9 10 J Q K A/;
 
+#seed random:
+srand(localtime());
 
 ##MAIN FUNCTION:
 
@@ -22,14 +24,17 @@ my @deck = create_deck();
 
 #shuffle the deck
 
-
+# [edited notation]
 # from wikipedia: http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+
+
+#   for n from m - 1 downto 1 do
 for(my $i=(@deck); $i>=0 ; $i--) {
 
-#   initialize a such that . i . a[i] . i
-#   for n from m - 1 downto 1 do
-#         j . random (0 .. n)
-#         exchange a[j] and a[n]
+#         j = random (0 .. n)
+#my $j = 
+
+#         swap a[j], a[n]
 
 }
 
