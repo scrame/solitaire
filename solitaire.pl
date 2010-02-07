@@ -33,6 +33,14 @@ shuffle_deck(@deck);
 #slot is marked as empty
 
 
+my $board_length = 7;
+#deal out the board:
+my @board;
+
+
+#there is also a main reserve pile, of the cards left over after dealing.
+
+
 
 
 
@@ -44,6 +52,12 @@ shuffle_deck(@deck);
 print_debug();
 
 ##END MAIN FUNCTION
+
+##FIELD FUNCTIONS
+
+
+
+##END FIELD FUNCTIONS
 
 
 ##DECK FUNCTIONS
