@@ -48,7 +48,7 @@ for(my $i=0; $i<$board_length; $i++) {
 }
 
 #there is also a main reserve pile, of the cards left over after dealing.
-
+#for now, this is just the deck.
 
 
 
