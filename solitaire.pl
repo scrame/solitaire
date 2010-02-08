@@ -4,8 +4,9 @@
 #WELL, I DIDN'T REALLY CARE IF THEY WEREN'T PASSED AROUND EFFICIENTLY. IF YOU ARE SOMEONE TRYING TO LEARN FROM THIS SCRIPT, 
 #I AM VERY SORRY. THAT IS ALL.
 
-#NOTE: IF YOU WANT DEBUGGING INFORMATION, SET THE ENVIRONMENT VARIABLE DEBUG!
+#NOTE: IF YOU WANT DEBUGGING INFORMATION, SET THE ENVIRONMENT VARIABLE DEBUG=1!
 
+#ALSO, I HAVE NOW USED ONE REFERENCE. THIS IS STILL NOT PRETTY CODE.
 
 use strict;
 use warnings;
@@ -26,7 +27,7 @@ srand(rand(time()));
 #create a deck
 my @deck = create_deck();
 
-shuffle_deck(@deck);
+my @shuffled_deck = shuffle_deck(@deck);
 
 #create a playing field, it should have 7 slots. Each slot should have a reserve and an active card.
 #when the active card is played, a card is drawn from the reserve, and if there is no reserve, the
@@ -37,6 +38,14 @@ my $board_length = 7;
 #deal out the board:
 my @board;
 
+#filling it out the easy way:
+for(my $i=0; $i<$board_length; $i++) {
+    my @row;
+    for(my $j = $i; $j < $board_length; $j++) {
+        push(@row, pop(@shuffled_deck));
+    }
+    push(@board, \@row);
+}
 
 #there is also a main reserve pile, of the cards left over after dealing.
 
@@ -98,9 +107,18 @@ sub print_debug {
         print "rank:";
         print @ranks;
         print "deck:";
-        my @test_deck = create_deck();
-        print @test_deck;
-        @test_deck = shuffle_deck(@test_deck);
-        print @test_deck;
+        print @deck;
+        print @shuffled_deck;
+        print "board:";
+#        print @board;
+
+        foreach my $row(reverse @board) {
+            my $column_out = join(" ", @$row);
+            print $column_out;
+        }
+        
+        
+        print "reserve:";
+        print join(" ", @deck);
     }
 }
