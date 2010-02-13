@@ -2,7 +2,7 @@
 
 
 class Card
-  attr_accessor :suit, :rank
+  attr_reader :suit, :rank
   def initialize(suit,rank)
     @suit = suit
     @rank = rank
@@ -41,9 +41,40 @@ class Deck
   end
 end
 
-deck = Deck.new()
+class Board
+  attr_accessor :grid
 
-while(0 < deck.reserve) do
-  puts deck.deal()
+  def initialize(deck)
+    #clear out the right sizes for each array in the board.
+    @grid = Array.new();
+    for i in (1..7)
+      puts i
+      @grid[i-1] = Array.new(i)      
+    end
+    
+    #set up from the deck
+    for i in (0.upto(@grid.length-1))
+      for j in (0.upto(@grid[i].length-1))
+        @grid[i][j] = deck.deal        
+      end
+    end
+  end
+
 end
+
+
+class Game
+  attr_accessor :board, :reserve, :foundations
+  
+  def initialize(board, reserve)
+    @foundations = {:aces => [], :diamonds => [], :spades => [], :clubs[]}
+    @reserve = Deck.new
+    @board = Board.new(@reserve)
+  end
+
+end
+
+##MAIN
+
+game = Game.new(board, deck)
 
