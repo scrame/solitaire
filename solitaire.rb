@@ -48,7 +48,6 @@ class Board
     #clear out the right sizes for each array in the board.
     @grid = Array.new();
     for i in (1..7)
-      puts i
       @grid[i-1] = Array.new(i)      
     end
     
@@ -66,15 +65,22 @@ end
 class Game
   attr_accessor :board, :reserve, :foundations
   
-  def initialize(board, reserve)
-    @foundations = {:aces => [], :diamonds => [], :spades => [], :clubs[]}
+  def initialize()
+    @foundations = {:aces => [], :diamonds => [], :spades => [], :clubs => []}
     @reserve = Deck.new
     @board = Board.new(@reserve)
+  end
+
+  def play()
+    while(0 != @reserve.reserve()) do
+      puts @reserve.deal()
+    end
   end
 
 end
 
 ##MAIN
 
-game = Game.new(board, deck)
+game = Game.new()
 
+game.play()
